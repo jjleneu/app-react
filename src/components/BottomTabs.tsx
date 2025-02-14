@@ -1,12 +1,12 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import React from 'react'   
-import CitasScreen from '../screens/agenda/CitasScreen';
-import AntDesign from '@expo/vector-icons/AntDesign';
-import { colors } from '../global/color';
-import DrawerMenu from './Drawer/DrawerMenu';
 import {  TouchableOpacity, View } from 'react-native';
+import DrawerMenu from './Drawer/DrawerMenu';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useNavigation } from '@react-navigation/native';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import CitasScreen from '../screens/agenda/CitasScreen';
+import { colors } from '../global/color';
 
  
 
@@ -51,6 +51,7 @@ export default function BottomTabs() {
                       },
                     })}></Tab.Screen>
         <Tab.Screen  name='Citas' component={CitasScreen} options={{
+          headerTitle:'Atrás',
           headerShown:true,
           headerShadowVisible:false,
           headerLeft: () => {
@@ -66,9 +67,7 @@ export default function BottomTabs() {
               
             );
           } 
-        }}></Tab.Screen>
-        <Tab.Screen  name='Tratamiento' component={CitasScreen}></Tab.Screen> 
-        
+        }}></Tab.Screen>  
     </Tab.Navigator>
   )
 }

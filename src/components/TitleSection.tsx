@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
      marginLeft: 5
   },
   text: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight:'bold',
     padding: 5
   }

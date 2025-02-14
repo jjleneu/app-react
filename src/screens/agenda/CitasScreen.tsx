@@ -1,24 +1,13 @@
 import React from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { CitasScreenTabProp } from '../../types/navigation-prop';
 import OptionCard from '../../components/OptionCard';
 import { OpcionCita } from '../../types';
 import TitleSection from '../../components/TitleSection';
+import { citas, servicios } from '../../db';
 
 export default function CitasScreen({ navigation }: CitasScreenTabProp) {
-  const servicios: OpcionCita[] = [
-    { id: '1', title: 'Consulta Médica', icon: "../../assets/consulta-medica.png" },
-    { id: '2', title: 'Laboratorio', icon: "../../assets/laboratorio.png" },
-    { id: '3', title: 'Imágenes y Procedimiento' },
-    { id: '4', title: 'Terapía Física' },
-    { id: '5', title: 'Recetas médicas' },
-    { id: '6', title: 'Orden externa' },
-  ];
-
-  const citas = [
-    { id: '1', title: 'Próximas citas' },
-    { id: '2', title: 'Historial de citas' }
-  ];
+  
 
   const sections = [
     {
@@ -44,23 +33,31 @@ export default function CitasScreen({ navigation }: CitasScreenTabProp) {
   ];
 
   return (
-    <FlatList
-      data={sections}
-      keyExtractor={(item, index) => index.toString()}
-      renderItem={({ item }) => (
-        <View>
-          <TitleSection title={item.title} />
-          <FlatList
-            data={item.data}
-            keyExtractor={(subItem) => subItem.id}
-            renderItem={item.renderItem}
-            numColumns={item.numColumns} 
-            contentContainerStyle={styles.list}
-          />
-        </View>
-      )}
-      contentContainerStyle={styles.container}
-    />
+    <>
+      <View style={styles.tituloContainer}>
+        <Text style={styles.titulo}>
+            Citas
+        </Text>
+      </View>
+      <FlatList
+          data={sections}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <View>
+              <TitleSection title={item.title} />
+              <FlatList
+                data={item.data}
+                keyExtractor={(subItem) => subItem.id}
+                renderItem={item.renderItem}
+                numColumns={item.numColumns} 
+                contentContainerStyle={styles.list}
+              />
+            </View>
+          )}
+          contentContainerStyle={styles.container}
+        />
+    </>
+    
   );
 }
 
@@ -78,4 +75,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  tituloContainer: {
+    width: '100%',
+    backgroundColor:'#ffffff',
+    paddingHorizontal: 20,
+    paddingVertical: 10
+  },
+  titulo: {
+    fontSize: 20,
+    fontWeight:'bold'
+  }
 });

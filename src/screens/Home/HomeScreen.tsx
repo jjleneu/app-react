@@ -2,6 +2,7 @@ import React from 'react'
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import AccesoDirectoCard from '../../components/Home/AccesoDirectoCard';
 import { colors } from '../../global/color';
+import TitleSection from '../../components/TitleSection';
 
 
 export default function HomeScreen( ) {
@@ -19,9 +20,10 @@ export default function HomeScreen( ) {
         <View style={{backgroundColor:'#fff'}}>
           <Text style={homeStyle.nombreText}>Buenas Noches,{'\n'}Juan</Text>
         </View>
-          <View style={[homeStyle.accesoRapidoView, {borderLeftColor: colors.primary.background}]}>
-            <Text style={homeStyle.accesoRapidoLabel}>Mis Tratamientos</Text>
-          </View>
+        <View style={{marginVertical: 10}}>
+          <TitleSection title="Mis Tratamientos"></TitleSection>
+        </View>
+          
           <View style={homeStyle.imageContainer}>
               <Image source={
                 require('../../../assets/icon-home.png')
@@ -34,9 +36,10 @@ export default function HomeScreen( ) {
        
         
         <View style={homeStyle.accesoRapidoContainer}>
-          <View style={[homeStyle.accesoRapidoView, {borderLeftColor: colors.primary.background}]}>
-            <Text style={homeStyle.accesoRapidoLabel}>Acceso rápido</Text>
+          <View style={{marginVertical: 10}}>
+              <TitleSection title="Acceso rápido"></TitleSection>
           </View>
+          
           <View>
               <FlatList
                 data={data}

@@ -1,10 +1,11 @@
-import { createDrawerNavigator } from '@react-navigation/drawer'
 import React from 'react'
+import { Image } from 'react-native';
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import Ionicons from '@expo/vector-icons/Ionicons';
 import SettingScreen from '../../screens/Drawer/SettingScreen';
 import PromotionScreen from '../../screens/Drawer/PromotionScreen'; 
-import { Image } from 'react-native';
-import BottomTabs from '../BottomTabs';
 import HomeScreen from '../../screens/Home/HomeScreen';
+import { colors } from '../../global/color';
 
 const Drawer = createDrawerNavigator();
 
@@ -21,9 +22,21 @@ export default function DrawerMenu() {
                            />
                      )
                    }}>            
-       <Drawer.Screen component={HomeScreen} name='Home'></Drawer.Screen>
-       <Drawer.Screen component={PromotionScreen} name='Promociones'></Drawer.Screen>
-       <Drawer.Screen component={SettingScreen} name='Configuración'></Drawer.Screen>
+       <Drawer.Screen component={HomeScreen} name='Home' options={{
+        drawerIcon: ({focused, size})=>(
+          <Ionicons name="home-outline" size={size} color={focused?"#007ACC":"#888"} />
+        ),
+       }}></Drawer.Screen>
+       <Drawer.Screen component={PromotionScreen} name='Promociones' options={{
+        drawerIcon: ({focused, size})=>(
+          <Ionicons name="apps-outline" size={size} color={focused?"#007ACC":"#888"}/>
+        ),
+       }}></Drawer.Screen>
+       <Drawer.Screen component={SettingScreen} name='Configuración' options={{
+        drawerIcon: ({focused, size})=>(
+          <Ionicons name="settings-outline" size={size} color={focused?"#007ACC":"#888"}/>
+        ),
+       }}></Drawer.Screen>
     </Drawer.Navigator>
   )
 }
