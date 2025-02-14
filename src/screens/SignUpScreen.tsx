@@ -9,10 +9,12 @@ import { SignUpScreenProps } from '../types/navigation-prop';
 import { Controller, useForm } from 'react-hook-form';
 import { SignUpForm, validationSignUpSchema } from '../types/auth';
 import { yupResolver } from '@hookform/resolvers/yup';
+import FullScreenModal from '../components/FullScreenModal';
 
 
 export default function SignUpScreen({navigation}: SignUpScreenProps) {
 
+  
   
 
   const {control, handleSubmit, formState: { errors }} = useForm<SignUpForm>({
@@ -26,6 +28,7 @@ export default function SignUpScreen({navigation}: SignUpScreenProps) {
   const onSubmit = (data: SignUpForm)=>{
     Alert.alert('Se ha creado el usuario correctamente, Inicia Sesión');
     navigation.navigate('Login')
+
   }
 
   return (
@@ -164,8 +167,7 @@ export default function SignUpScreen({navigation}: SignUpScreenProps) {
                         onPress={goToLogin}>
                         <Text style={[{textDecorationLine: 'underline', color:'#7B3AED'}, styles.textSignUp]}>Sign in</Text>
                 </TouchableOpacity>
-            </View> 
-        
+            </View>   
     </View>
   )
 }

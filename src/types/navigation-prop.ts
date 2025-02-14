@@ -17,11 +17,6 @@ export type MenuScreenProps = NativeStackScreenProps<RootStackParamList, "Menu">
 
 
 export type RootTabParamList = {
-  Home: undefined;
+  Menu: undefined;
   Citas: undefined;
-};
-
-export type HomeScreenTabProp = NativeStackScreenProps<RootTabParamList, "Home">;
-export type CitasScreenTabProp = NativeStackScreenProps<RootTabParamList, "Citas">;
-
-
+}; 

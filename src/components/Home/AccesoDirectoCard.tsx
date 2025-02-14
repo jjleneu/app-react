@@ -1,11 +1,14 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native' 
 
-export default function AccesoDirectoCard({item}) {
+export default function AccesoDirectoCard({item}) { 
   return (
-      <View style={homeStyle.card}>
+    <>
+      <TouchableOpacity style={homeStyle.card}>
           <Text>{item.id}</Text>
-      </View>
+      </TouchableOpacity> 
+    </>
+
+    
   )
 }
 

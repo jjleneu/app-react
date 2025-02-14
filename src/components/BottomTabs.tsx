@@ -7,10 +7,11 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import CitasScreen from '../screens/agenda/CitasScreen';
 import { colors } from '../global/color';
+import { RootTabParamList } from '../types/navigation-prop';
 
  
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<RootTabParamList>();
 
 
 export default function BottomTabs() { 
