@@ -4,10 +4,11 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import SettingScreen from '../../screens/Drawer/SettingScreen';
 import PromotionScreen from '../../screens/Drawer/PromotionScreen'; 
-import HomeScreen from '../../screens/Home/HomeScreen';
-import { colors } from '../../global/color';
+import HomeScreen from '../../screens/Home/HomeScreen'; 
+import { RootDrawerParamList } from '../../types/navigation-prop';
+import ModalidadCitaScreen from '../../screens/agenda/ModalidadCitaScreen';
 
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator<RootDrawerParamList>();
 
 export default function DrawerMenu() {
   return (
@@ -32,11 +33,11 @@ export default function DrawerMenu() {
           <Ionicons name="apps-outline" size={size} color={focused?"#007ACC":"#888"}/>
         ),
        }}></Drawer.Screen>
-       <Drawer.Screen component={SettingScreen} name='Configuración' options={{
+       <Drawer.Screen component={SettingScreen} name='Setting' options={{
         drawerIcon: ({focused, size})=>(
           <Ionicons name="settings-outline" size={size} color={focused?"#007ACC":"#888"}/>
         ),
-       }}></Drawer.Screen>
+       }}></Drawer.Screen> 
     </Drawer.Navigator>
   )
 }

@@ -3,16 +3,12 @@ import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import AccesoDirectoCard from '../../components/Home/AccesoDirectoCard';
 import { colors } from '../../global/color';
 import TitleSection from '../../components/TitleSection';
+import { citasAccesoDirecto } from '../../db';
 
 
 export default function HomeScreen( ) {
 
-  const data = [
-  { id: '1', title: 'Card 1' },
-  { id: '2', title: 'Card 2' },
-  { id: '3', title: 'Card 3' },
-  { id: '4', title: 'Card 4' },
-];
+   
 
   return (
     <View style={homeStyle.container}>
@@ -42,7 +38,7 @@ export default function HomeScreen( ) {
           
           <View>
               <FlatList
-                data={data}
+                data={citasAccesoDirecto}
                 keyExtractor={item=>item.id}
                 renderItem={({item})=>(<View style={{padding:5}}>
                                           <AccesoDirectoCard item={item}/>

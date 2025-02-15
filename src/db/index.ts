@@ -9,7 +9,14 @@ export const servicios: OpcionCita[] = [
     { id: '6', title: 'Orden externa' },
   ];
 
-export const citas = [
-    { id: '1', title: 'Próximas citas' },
-    { id: '2', title: 'Historial de citas' }
-  ];
+export const cita: OpcionCita[] = [
+  { id: "1", title: "Próximas citas" },
+  { id: "2", title: "Historial de citas" },
+];
+
+export const citasAccesoDirecto : OpcionCita[]= [
+  { id: "1", title: "Agendar \n cita médica" },
+  { id: "2", title: "Card 2" },
+  { id: "3", title: "Card 3" },
+  { id: "4", title: "Card 4" },
+];

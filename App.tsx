@@ -4,9 +4,9 @@ import LoginScreen from './src/screens/LoginScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import { RootStackParamList } from './src/types/navigation-prop';
 import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen'; 
-import { Image, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
 import Index from './src/screens/Index';
-import DrawerMenu from './src/components/Drawer/DrawerMenu';
+import ModalidadCitaScreen from './src/screens/agenda/ModalidadCitaScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -27,6 +27,13 @@ export default function App() {
             <Stack.Screen name='Index' component={Index} options={{
               headerShown:false
             }}/> 
+             <Stack.Screen name='Modalidad' component={ModalidadCitaScreen} options={{
+               headerTitle:'Atrás',
+               headerShadowVisible:false,
+               headerStyle: {
+                backgroundColor:'#F3F4F6'
+               }
+             }}/> 
         </Stack.Navigator>
         
     </NavigationContainer>
