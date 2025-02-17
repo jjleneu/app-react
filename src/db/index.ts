@@ -20,3 +20,7 @@ export const citasAccesoDirecto : OpcionCita[]= [
   { id: "3", title: "Card 3" },
   { id: "4", title: "Card 4" },
 ];
+
+
+export const token =
+  "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ4Q29tbWVyY2UiLCJpYXQiOjE3Mzk3MzA3MTIsInN1YiI6Im4zVTMkNiQwWC1DMG0zUmMzIiwiaXNzIjoid3N3ZWJhdXJvcmEiLCJleHAiOjE3Mzk4MTcxMTJ9.BdR1ioYe-188Z5diyxTo2I4XKqGE9XYFRajSn2S2bxo";

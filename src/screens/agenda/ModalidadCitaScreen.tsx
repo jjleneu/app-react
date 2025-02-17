@@ -1,15 +1,84 @@
-import React, { useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
- 
+import React, { useEffect, useState } from 'react'
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import BuscarEspecialidadesModal from '../../components/Especialidades/Modal/BuscarEspecialidadesModal';
+import { Especialidad } from '../../types/especialidad';
+import { obtenerSucursalesXEspecialidad } from '../../services/Sucursales';
+import { Sucursal } from '../../types/sucursal';
+import BuscarSucursalXEspecialidadModal from '../../components/Especialidades/Modal/BuscarSucursalXEspecialidadModal';  
+import Toast from 'react-native-toast-message'; 
 
 export default function ModalidadCitaScreen() {
-
-  const [selectedButton, setSelectedButton] = useState<string|undefined>(undefined);
+  
+  const [selectedButton, setSelectedButton] = useState<string|undefined>(undefined); 
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalSucursal, setModalSucursal] = useState(false); 
+  const [especialty, setEspecialty] = useState<Especialidad>()
+  const [sucursal, setSucursal] = useState<Sucursal>();
 
   const handleSelectButton = (buttonId:string) => {
     setSelectedButton(buttonId);
   };
 
+  const cerrarModalEspecialidad = ()=>{
+    setModalVisible(false)
+  }
+
+  const cerrarModalSucursal = ()=>setModalSucursal(false)
+
+
+  useEffect(() => { 
+       const getSucursales = async()=>{
+          if(especialty){
+               await obtenerSucursalesXEspecialidad(especialty.idEspecialidad);
+          } 
+       }
+    }, [especialty])
+
+
+    const continuar = ()=>{
+      if(!selectedButton){
+        errorMessage('Elija modalidad Presencial o Virtual.');
+        return;
+      }
+
+      if(!especialty){
+         errorMessage('Elija una especialidad para continuar');
+         return;
+      }
+
+      if(!sucursal){
+         errorMessage('Elija un centro médico para continuar');
+         return;
+      }  
+    } 
+    const errorMessage = (error:string)=>{
+        Toast.show({
+                    type: 'error', 
+                    text2: error, 
+                    text2Style: {
+                      color: '#AC2B19',   
+                      fontSize: 14,
+                    },
+                    topOffset: 10
+              })
+    }
+
+    const verEspecialidades = ()=>{
+        if(!selectedButton){
+          errorMessage('Elija modalidad Presencial o Virtual.');
+          return;
+        }
+        setModalVisible(true);
+    }
+
+    const verSucursales = ()=>{
+        if(!especialty){
+          errorMessage('Elija una especialidad para continuar');
+          return;
+        }
+        setModalSucursal(true);
+    }
 
 
   return (
@@ -39,7 +108,49 @@ export default function ModalidadCitaScreen() {
             </TouchableOpacity>
           </View>
       </View>
-      
+      <ScrollView style={{paddingHorizontal: 10}}>
+            <Text style={styleForm.tilteText}>Elige los datos de la cita médica</Text>    
+            <View style={styleForm.inputContainer}>
+                 <Text style={styleForm.label}>Especialidad*: </Text> 
+                 <TouchableOpacity style={[styleForm.input,especialty&&especialty.nombre?{borderColor:'#0071CF'}:{borderColor:'#888'}]} 
+                                    onPress={verEspecialidades}>
+                       <Text
+                          style={especialty&&especialty.nombre?{color:'#0071CF'}:{color:'#888'}}
+                       >{ especialty&&especialty.nombre?especialty.nombre:'Elegir una especialidad'}</Text>     
+                       <MaterialIcons name="keyboard-arrow-right" size={24} color="black" />         
+                  </TouchableOpacity>                   
+            </View>  
+
+            <View style={styleForm.inputContainer}>
+                 <Text style={styleForm.label}>Central médica*: </Text> 
+                 <TouchableOpacity style={[styleForm.input,sucursal&&sucursal.nombre?{borderColor:'#0071CF'}:{borderColor:'#888'}]} 
+                                    onPress={verSucursales}>
+                       <Text
+                          style={sucursal&&sucursal.nombre?{color:'#0071CF'}:{color:'#888'}}
+                       >{sucursal?sucursal?.nombre:'Elegir un centro médico'}</Text>     
+                       <MaterialIcons name="keyboard-arrow-right" size={24} color="black" />         
+                  </TouchableOpacity>                   
+            </View>  
+
+             <View style={styleForm.inputContainer}>
+                  <TouchableOpacity style={styleForm.continuarButtom} onPress={continuar}>
+                       <Text style={styleForm.continuarLabel}>CONTINUAR</Text>          
+                  </TouchableOpacity>               
+             </View>
+   
+      </ScrollView>
+      <BuscarEspecialidadesModal modalVisible={modalVisible} 
+                                 closeModal={cerrarModalEspecialidad}
+                                 setEspecialty={setEspecialty}></BuscarEspecialidadesModal>
+
+      {especialty&&
+        ( <BuscarSucursalXEspecialidadModal modalVisible={modalSucursal} 
+                                            closeModal={cerrarModalSucursal}
+                                            idSpecialty={especialty.idEspecialidad}
+                                            setSucursal={setSucursal}></BuscarSucursalXEspecialidadModal>)
+      }
+
+    <Toast/>                         
     </View>
   )
 }
@@ -79,7 +190,8 @@ const styles = StyleSheet.create({
     backgroundColor:'#FFFFFF',
     height: 50,
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
+    borderRadius:10,
   },
   buttomSelected: {
     backgroundColor: '#0071CF',
@@ -87,6 +199,7 @@ const styles = StyleSheet.create({
     borderColor: '#ffffff'
   },
   textButton: {
+    
     fontWeight:'bold',
     fontSize: 16
   },
@@ -94,4 +207,46 @@ const styles = StyleSheet.create({
     color:'#ffffff'
   }
 }
-)
+);
+
+const styleForm = StyleSheet.create({
+   inputContainer: {
+      flex:1,
+      marginVertical: 15
+   },
+
+   input: {
+      height: 50,
+      borderWidth:1,
+      backgroundColor:'#ffffff',
+      justifyContent:'space-between',
+      alignItems:'center',
+      borderRadius: 5,
+      paddingHorizontal: 5,
+      flexDirection:'row', 
+   },
+   label: {
+    color:'#858993',
+    fontWeight:'bold'
+   },
+   continuarButtom: {
+      height: 50,
+      borderWidth:0.1,
+      backgroundColor:'#0071CF',
+      justifyContent:'center',
+      alignItems:'center',
+      borderRadius: 5,
+      marginTop: 20
+   },
+   continuarLabel: {
+      color:'#ffffff',
+      fontSize: 16
+   },
+   tilteText: {
+    color: '#1A1A2E',
+    fontSize: 18,
+    fontWeight:'bold',
+    marginTop: 20,
+    marginBottom: 10
+   }
+}); 
