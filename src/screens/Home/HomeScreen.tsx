@@ -4,9 +4,10 @@ import AccesoDirectoCard from '../../components/Home/AccesoDirectoCard';
 import { colors } from '../../global/color';
 import TitleSection from '../../components/TitleSection';
 import { citasAccesoDirecto } from '../../db';
+import { IndexScreenProps } from '../../types/navigation-prop';
 
 
-export default function HomeScreen( ) {
+export default function HomeScreen() {
 
    
 

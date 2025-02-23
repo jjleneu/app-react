@@ -1,20 +1,25 @@
  import { StyleSheet, Text, TouchableOpacity, View } from 'react-native' 
 import { OpcionCita } from '../../types'
 import { useNavigation } from '@react-navigation/native' 
+import { DisponibilidadCitaScreenProps, ModalidadCitaScreenProps, RootStackParamList } from '../../types/navigation-prop'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
-export type AccesoDirectoCardProps = {
-  item: OpcionCita 
+type AccesoDirectoCardProps = {
+  item: OpcionCita,  
 }
 
-export default function AccesoDirectoCard({item}: AccesoDirectoCardProps) { 
+export default function AccesoDirectoCard(props: AccesoDirectoCardProps) { 
+
   const navigation = useNavigation();
-  const nuevaCita = ()=>{
-      navigation.navigate("Modalidad");
+
+   const nuevaCita = ()=>{
+      console.log(navigation)
+      navigation.navigate('Modalidad');
   }
   return (
     <>
       <TouchableOpacity style={homeStyle.card} onPress={nuevaCita}>
-          <Text style={{textAlign:'center'}}>{item.title}</Text>
+          <Text style={{textAlign:'center'}}>{props.item.title}</Text>
       </TouchableOpacity> 
     </> 
   )

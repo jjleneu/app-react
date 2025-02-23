@@ -1,12 +1,12 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { CitasScreenTabProp } from '../../types/navigation-prop';
+import { CitasTabScreenProps } from '../../types/navigation-prop';
 import OptionCard from '../../components/OptionCard';
 import { OpcionCita } from '../../types';
 import TitleSection from '../../components/TitleSection';
 import { citas, servicios } from '../../db';
 
-export default function CitasScreen({ navigation }: CitasScreenTabProp) {
+export default function CitasScreen() {
   
 
   const sections = [

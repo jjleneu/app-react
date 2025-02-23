@@ -9,7 +9,7 @@ export const servicios: OpcionCita[] = [
     { id: '6', title: 'Orden externa' },
   ];
 
-export const cita: OpcionCita[] = [
+export const citas: OpcionCita[] = [
   { id: "1", title: "Próximas citas" },
   { id: "2", title: "Historial de citas" },
 ];
@@ -23,4 +23,4 @@ export const citasAccesoDirecto : OpcionCita[]= [
 
 
 export const token =
-  "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ4Q29tbWVyY2UiLCJpYXQiOjE3Mzk3MzA3MTIsInN1YiI6Im4zVTMkNiQwWC1DMG0zUmMzIiwiaXNzIjoid3N3ZWJhdXJvcmEiLCJleHAiOjE3Mzk4MTcxMTJ9.BdR1ioYe-188Z5diyxTo2I4XKqGE9XYFRajSn2S2bxo";
+  "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ4Q29tbWVyY2UiLCJpYXQiOjE3NDAyNjgyNDgsInN1YiI6Im4zVTMkNiQwWC1DMG0zUmMzIiwiaXNzIjoid3N3ZWJhdXJvcmEiLCJleHAiOjE3NDAzNTQ2NDh9.Tim0Rx2ph5pWe-63afONxKqIZNhQytYdHdyT1lEmGUU";

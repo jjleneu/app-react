@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useMemo, useState } from 'react'
+import { ScrollView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import BuscarEspecialidadesModal from '../../components/Especialidades/Modal/BuscarEspecialidadesModal';
 import { Especialidad } from '../../types/especialidad';
-import { obtenerSucursalesXEspecialidad } from '../../services/Sucursales';
 import { Sucursal } from '../../types/sucursal';
 import BuscarSucursalXEspecialidadModal from '../../components/Especialidades/Modal/BuscarSucursalXEspecialidadModal';  
 import Toast from 'react-native-toast-message'; 
+import { ModalidadCitaScreenProps } from '../../types/navigation-prop';
 
-export default function ModalidadCitaScreen() {
+export default function ModalidadCitaScreen({navigation}:ModalidadCitaScreenProps) {
   
   const [selectedButton, setSelectedButton] = useState<string|undefined>(undefined); 
   const [modalVisible, setModalVisible] = useState(false);
@@ -16,7 +16,11 @@ export default function ModalidadCitaScreen() {
   const [especialty, setEspecialty] = useState<Especialidad>()
   const [sucursal, setSucursal] = useState<Sucursal>();
 
-  const handleSelectButton = (buttonId:string) => {
+  const isSelectedPresencial = useMemo(() => selectedButton==='p', [selectedButton])
+  
+  const isSelectedVirtual= useMemo(() => selectedButton==='v', [selectedButton])
+
+  const handleSelectButton = (buttonId:string) => { 
     setSelectedButton(buttonId);
   };
 
@@ -25,15 +29,6 @@ export default function ModalidadCitaScreen() {
   }
 
   const cerrarModalSucursal = ()=>setModalSucursal(false)
-
-
-  useEffect(() => { 
-       const getSucursales = async()=>{
-          if(especialty){
-               await obtenerSucursalesXEspecialidad(especialty.idEspecialidad);
-          } 
-       }
-    }, [especialty])
 
 
     const continuar = ()=>{
@@ -51,6 +46,8 @@ export default function ModalidadCitaScreen() {
          errorMessage('Elija un centro médico para continuar');
          return;
       }  
+      console.log("navigation.navigate('DisponibilidadCita')")
+      navigation.navigate('DisponibilidadCita')
     } 
     const errorMessage = (error:string)=>{
         Toast.show({
@@ -90,19 +87,17 @@ export default function ModalidadCitaScreen() {
       <View style={styles.modalidadContainer}>
           <Text style={styles.textModalidad}>Elige la modalidad de la cita médica</Text>
           <View style={styles.buttomContainer}>
-            <TouchableOpacity style={[styles.buttom,
-                                     selectedButton==='p'&&styles.buttomSelected]
-                                    } 
-                              onPress={()=>handleSelectButton('p')}>
-                <Text style={[styles.textButton, selectedButton==='p'&&styles.textButtonSelected]}>
+            <TouchableOpacity style={[styles.buttom, isSelectedPresencial&&styles.buttomSelected]} 
+                              onPressIn={()=>handleSelectButton('p')}>
+                <Text style={[styles.textButton,isSelectedPresencial&&styles.textButtonSelected]}>
                     Presencial
                 </Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.buttom,
-                                     selectedButton==='v'&&styles.buttomSelected]
+                                     isSelectedVirtual&&styles.buttomSelected]
                                     } 
-                              onPress={()=>handleSelectButton('v')}>
-               <Text style={[styles.textButton, selectedButton==='v'&&styles.textButtonSelected]}>
+                              onPressIn={()=>handleSelectButton('v')}>
+               <Text style={[styles.textButton,isSelectedVirtual&&styles.textButtonSelected]}>
                     Virtual
                 </Text>
             </TouchableOpacity>
@@ -113,7 +108,7 @@ export default function ModalidadCitaScreen() {
             <View style={styleForm.inputContainer}>
                  <Text style={styleForm.label}>Especialidad*: </Text> 
                  <TouchableOpacity style={[styleForm.input,especialty&&especialty.nombre?{borderColor:'#0071CF'}:{borderColor:'#888'}]} 
-                                    onPress={verEspecialidades}>
+                                    onPressIn={verEspecialidades}>
                        <Text
                           style={especialty&&especialty.nombre?{color:'#0071CF'}:{color:'#888'}}
                        >{ especialty&&especialty.nombre?especialty.nombre:'Elegir una especialidad'}</Text>     
@@ -124,7 +119,7 @@ export default function ModalidadCitaScreen() {
             <View style={styleForm.inputContainer}>
                  <Text style={styleForm.label}>Central médica*: </Text> 
                  <TouchableOpacity style={[styleForm.input,sucursal&&sucursal.nombre?{borderColor:'#0071CF'}:{borderColor:'#888'}]} 
-                                    onPress={verSucursales}>
+                                    onPressIn={verSucursales}>
                        <Text
                           style={sucursal&&sucursal.nombre?{color:'#0071CF'}:{color:'#888'}}
                        >{sucursal?sucursal?.nombre:'Elegir un centro médico'}</Text>     
@@ -138,19 +133,17 @@ export default function ModalidadCitaScreen() {
                   </TouchableOpacity>               
              </View>
    
-      </ScrollView>
-      <BuscarEspecialidadesModal modalVisible={modalVisible} 
+      </ScrollView>  
+    <Toast/> 
+    <BuscarEspecialidadesModal modalVisible={modalVisible} 
                                  closeModal={cerrarModalEspecialidad}
-                                 setEspecialty={setEspecialty}></BuscarEspecialidadesModal>
-
-      {especialty&&
+                                 setEspecialty={setEspecialty}></BuscarEspecialidadesModal>    
+    {especialty&&
         ( <BuscarSucursalXEspecialidadModal modalVisible={modalSucursal} 
                                             closeModal={cerrarModalSucursal}
                                             idSpecialty={especialty.idEspecialidad}
                                             setSucursal={setSucursal}></BuscarSucursalXEspecialidadModal>)
-      }
-
-    <Toast/>                         
+      }                    
     </View>
   )
 }
