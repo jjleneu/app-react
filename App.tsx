@@ -8,6 +8,7 @@ import { StatusBar } from 'react-native';
 import Index from './src/screens/Index';
 import ModalidadCitaScreen from './src/screens/agenda/ModalidadCitaScreen';
 import DisponibilidadCitaScreen from './src/screens/agenda/DisponibilidadCitaScreen';
+import ConfirmacionCitasScreen from './src/screens/agenda/ConfirmacionCitasScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -36,6 +37,13 @@ export default function App() {
                }
              }}/> 
               <Stack.Screen name='DisponibilidadCita' component={DisponibilidadCitaScreen} options={{
+               headerTitle:'Atrás',
+               headerShadowVisible:false,
+               headerStyle: {
+                backgroundColor:'#F3F4F6'
+               }
+             }}/> 
+             <Stack.Screen name='ConfirmacionCita' component={ConfirmacionCitasScreen} options={{
                headerTitle:'Atrás',
                headerShadowVisible:false,
                headerStyle: {

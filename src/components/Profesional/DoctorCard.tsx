@@ -2,16 +2,23 @@ import React, { useState } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Feather from '@expo/vector-icons/Feather'; 
 import ShiftsModal from '../ShiftsModal';
+import { Especialidad } from '../../types/especialidad';
+import { Sucursal } from '../../types/sucursal';
 
 type DoctorCardProps = {
     name: string,
     shifts: any,
-    setShiftSelected: React.Dispatch<React.SetStateAction<undefined>>
+    setShiftSelected: React.Dispatch<React.SetStateAction<undefined>>,
+    especialty: Especialidad  ;
+    sucursal: Sucursal  ;
+    agendar:() => Promise<void>
 }
 
 export default function DoctorCard(props: DoctorCardProps) {
 
   const [modalVisible, setModalVisible] = useState(false);
+
+ 
   
   const closeModal = ()=>{
     setModalVisible(false)
@@ -32,10 +39,10 @@ export default function DoctorCard(props: DoctorCardProps) {
                             <Text style={styles.nameText}>Dr. {props.name}</Text>   
                     </View>
                        
-                      <Text style={styles.especialidadText}>Cardiologia</Text>   
+                      <Text style={styles.especialidadText}>{props.especialty.nombre}</Text>   
                       <View style={styles.sucursalContainer}>
                             <Feather name="map-pin" size={14} color="black" />
-                            <Text>Veris Alborada</Text>  
+                            <Text>{props.sucursal.nombre}</Text>  
                       </View>
                        
                       <TouchableOpacity style={styles.turnosButtom} onPressOut={verTurnos}>
@@ -43,7 +50,11 @@ export default function DoctorCard(props: DoctorCardProps) {
                       </TouchableOpacity>
                 </View> 
         </View> 
-        <ShiftsModal modalVisible={modalVisible} closeModal={closeModal} shifts={props.shifts} setShiftSelected={props.setShiftSelected}></ShiftsModal>
+        {modalVisible&&(<ShiftsModal modalVisible={modalVisible} 
+                                     closeModal={closeModal} 
+                                     shifts={props.shifts} 
+                                     setShiftSelected={props.setShiftSelected}
+                                     agendar={props.agendar}/>)}
     </View>
   )
 }
@@ -52,7 +63,7 @@ const styles = StyleSheet.create({
     card: {
         borderWidth:0.1,
         width:'100%',
-        height: 110,
+        height: 125,
         borderRadius: 10,
         backgroundColor:'#ffffff'
     },
@@ -86,12 +97,12 @@ const styles = StyleSheet.create({
     },
     turnosButtom: {
         backgroundColor:'#4651C5',
-        borderRadius: 20,
-        height: 25,
+        borderRadius: 5,
+        height: 30,
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
     },
     turnoText: {
-        color:'#fff'
+        color:'#fff' 
     }
 })

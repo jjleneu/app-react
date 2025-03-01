@@ -4,11 +4,23 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import HorizontalCalendar from '../../components/HorizontalCalendar';
 import DoctorCard from '../../components/Profesional/DoctorCard';
 import { obtenerProfesionalesDisponibles } from '../../services/ProfesionalesServices';
+import { DisponibilidadCitaScreenProps } from '../../types/navigation-prop';
+import { agendarCita } from '../../services/AgendamientoServices';
 
-export default function DisponibilidadCitaScreen() {
+export default function DisponibilidadCitaScreen({navigation,route}: DisponibilidadCitaScreenProps) {
   const [date, setDate] = useState(new Date()); 
   const [profesionales, setProfesionales] = useState();
   const [shiftSelected, setShiftSelected] = useState();
+
+  const agendar = async () =>{
+      const datosAgendamiento = {
+          idTurnos:shiftSelected!.idsIntervalos.toString(),
+          idCliente:0,
+          usuario:'KSUR',
+          modalidad:'N'
+      }
+      await agendarCita(datosAgendamiento);
+  }
 
 
   const obtenerMedicosDisponibles = async()=>{
@@ -17,7 +29,6 @@ export default function DisponibilidadCitaScreen() {
   }
 
   useEffect(() => {
-    console.log('useEffect')
      obtenerMedicosDisponibles()
   }, [date])
   
@@ -34,8 +45,11 @@ export default function DisponibilidadCitaScreen() {
               data={profesionales}
               renderItem={({item})=>(<DoctorCard 
                                             name={item.nombreMedico}
+                                            sucursal={route.params.sucursal!}
+                                            especialty={route.params.especialty!}
                                             shifts={item.turnos}
                                             setShiftSelected={setShiftSelected}
+                                            agendar={agendar}
                                         ></DoctorCard>)}
             ></FlatList>
            </View>

@@ -27,8 +27,7 @@ export default function BuscarSucursalXEspecialidadModal({ modalVisible, closeMo
          
       }, [idSpecialty])
     
-    const handleSucursal = ( item: Sucursal)=>{
-        console.log('handleSucursal')
+    const handleSucursal = ( item: Sucursal)=>{ 
         setSucursal(item);
         closeModal();
     }

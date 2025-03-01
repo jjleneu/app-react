@@ -8,7 +8,7 @@ export const obtenerProfesionalesDisponibles = async()=>{
         const params = {
           arg0: 1,
           arg1: 133,
-          arg2: "24/02/2025",
+          arg2: "28/02/2025",
           arg3: 'N',
           arg4: 3
         };
@@ -39,6 +39,7 @@ export const obtenerProfesionalesDisponibles = async()=>{
               return {
                 horaInicio: dataItem.horaInicio,
                 horaFin: dataItem.horaFin,
+                idsIntervalos: dataItem.idsIntervalos,
               };
             }),
           };

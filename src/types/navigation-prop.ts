@@ -1,7 +1,8 @@
 import {  BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { DrawerScreenProps } from "@react-navigation/drawer";
-import { RouteProp } from "@react-navigation/native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { Especialidad } from "./especialidad";
+import { Sucursal } from "./sucursal";
 
 export type RootStackParamList = {
   Login: undefined;
@@ -10,7 +11,15 @@ export type RootStackParamList = {
   Index: undefined;
   Menu: undefined;
   Modalidad: undefined;
-  DisponibilidadCita:undefined;
+  DisponibilidadCita: {
+    especialty: Especialidad | undefined;
+    sucursal: Sucursal | undefined;
+  };
+  ConfirmacionCita:{
+    idsIntervalos:string;
+    idCodigoCliente:number;
+    esTeleconsulta:string;
+  }
 };
 
 export type LoginScreenProps = NativeStackScreenProps<RootStackParamList, "Login">;
@@ -20,6 +29,8 @@ export type IndexScreenProps = NativeStackScreenProps<RootStackParamList, "Index
 export type MenuScreenProps = NativeStackScreenProps<RootStackParamList, "Menu">; 
 export type DisponibilidadCitaScreenProps = NativeStackScreenProps<RootStackParamList, "DisponibilidadCita">; 
 export type ModalidadCitaScreenProps = NativeStackScreenProps<RootStackParamList, "Modalidad">; 
+export type ConfirmacionCitaScreenProps = NativeStackScreenProps<RootStackParamList, "ConfirmacionCita">; 
+
 
  
 export type RootTabParamList = {

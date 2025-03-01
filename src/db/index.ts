@@ -23,4 +23,6 @@ export const citasAccesoDirecto : OpcionCita[]= [
 
 
 export const token =
-  "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ4Q29tbWVyY2UiLCJpYXQiOjE3NDAyNjgyNDgsInN1YiI6Im4zVTMkNiQwWC1DMG0zUmMzIiwiaXNzIjoid3N3ZWJhdXJvcmEiLCJleHAiOjE3NDAzNTQ2NDh9.Tim0Rx2ph5pWe-63afONxKqIZNhQytYdHdyT1lEmGUU";
+  "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ4Q29tbWVyY2UiLCJpYXQiOjE3NDA3NjA5NjMsInN1YiI6Im4zVTMkNiQwWC1DMG0zUmMzIiwiaXNzIjoid3N3ZWJhdXJvcmEiLCJleHAiOjE3NDA4NDczNjN9.GJbftKZIiqkuoXUnnTLPCS1d76DzzSO803J2OIP5TUc";
+
+export const codigoEmpresa=3

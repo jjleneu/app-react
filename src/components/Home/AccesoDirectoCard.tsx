@@ -12,8 +12,7 @@ export default function AccesoDirectoCard(props: AccesoDirectoCardProps) {
 
   const navigation = useNavigation();
 
-   const nuevaCita = ()=>{
-      console.log(navigation)
+   const nuevaCita = ()=>{ 
       navigation.navigate('Modalidad');
   }
   return (

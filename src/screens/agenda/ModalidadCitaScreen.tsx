@@ -45,9 +45,11 @@ export default function ModalidadCitaScreen({navigation}:ModalidadCitaScreenProp
       if(!sucursal){
          errorMessage('Elija un centro médico para continuar');
          return;
-      }  
-      console.log("navigation.navigate('DisponibilidadCita')")
-      navigation.navigate('DisponibilidadCita')
+      }   
+      navigation.navigate('DisponibilidadCita', {
+        especialty,
+        sucursal
+      })
     } 
     const errorMessage = (error:string)=>{
         Toast.show({

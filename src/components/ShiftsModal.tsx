@@ -1,19 +1,36 @@
 import React from 'react'
 import { FlatList, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native' 
 import AntDesign from '@expo/vector-icons/AntDesign';
+import { useNavigation } from '@react-navigation/native';
+import { ConfirmacionCitaScreenProps, RootStackParamList } from '../types/navigation-prop';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type ShiftsModalProps = {
     modalVisible:boolean,
     closeModal: () => void, 
     shifts:any,
     setShiftSelected: React.Dispatch<React.SetStateAction<undefined>> 
+     agendar:() => Promise<void>
 }
 
 export default function ShiftsModal(props: ShiftsModalProps) {
 
-  const seleccionarTurno = (shift:any)=>{
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'ConfirmacionCita'>>();
+
+  const seleccionarTurno = async(shift:any)=>{
+    console.log('seleccionaTurno')
         props.setShiftSelected(shift);
-        props.closeModal()
+
+        await props.agendar(); 
+
+        props.closeModal();
+       
+        navigation.navigate('ConfirmacionCita',{
+            idsIntervalos:shift.idsIntervalos,
+            idCodigoCliente:1,
+            esTeleconsulta:'N'
+        })
+        
   }
 
   return (
